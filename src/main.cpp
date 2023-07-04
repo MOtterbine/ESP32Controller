@@ -6,9 +6,7 @@
 #define MAIN_LED_GPIO 2
 #define ACTIVITY_PIN_GPIO   12
 #define FIRMWARE_VERSION  "1.0.0"
-#define BLUETOOTH_VISIBLE_NAME "OS Jamme II"
-
-//TaskHandle_t taskHandle_1 = NULL;
+#define BLUETOOTH_VISIBLE_NAME "ESP32 Device"
 
 String inputBuffer;
 
@@ -95,7 +93,7 @@ void BT_EventHandler(esp_spp_cb_event_t event, esp_spp_cb_param_t *param) {
   }
 }
 
-
+// runs automatically, then loop() is called
 void setup() {
 
   // Setup the serial port
@@ -117,7 +115,7 @@ void setup() {
   
 }
 
-
+// Runs infinitely after setup
 void loop() {
 
   // Remove the loop altogether...

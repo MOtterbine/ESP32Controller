@@ -18,7 +18,19 @@ void InitBluetooth(const char * btName, esp_spp_cb_t handler)
     // Serial.println(btName);
     if(SerialBT.begin(btName)) // Bluetooth device name
     {
-        //Serial.println("The device started, now you can pair it with bluetooth!");
+        int i = 0;
+        while(!SerialBT.isReady())
+        {
+            vTaskDelay(100);
+            if(i++ > 15)
+            {
+                Serial.printf("INIT FAILED: Bluetooth device '%s' failed to initialize after %d ms.\n\r", btName, i*100);
+                return;
+            }
+        }
+
+        Serial.printf("Bluetooth device '%s' initialized after %d ms.\n\r", btName, i*100);
+        
         if (btScanSync) {
             Serial.println("Starting discover...");
             BTScanResults *pResults = SerialBT.discover(BT_DISCOVER_TIME);
